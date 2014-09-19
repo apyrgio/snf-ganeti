@@ -1510,10 +1510,10 @@ class KVMHypervisor(hv_base.BaseHypervisor):
         else:
           raise errors.HypervisorError("vhost_net is configured"
                                        " but it is not available")
-        if up_hvp[constants.HV_VIRTIO_NET_QUEUES] > 1:
+        virtio_net_queues = up_hvp.get(constants.HV_VIRTIO_NET_QUEUES, 1)
+        if virtio_net_queues > 1:
           # Check for multiqueue virtio-net support.
           if self._VIRTIO_NET_QUEUES_RE.search(kvmhelp):
-            virtio_net_queues = up_hvp[constants.HV_VIRTIO_NET_QUEUES]
             # As advised at http://www.linux-kvm.org/page/Multiqueue formula
             # for calculating vector size is: vectors=2*N+1 where N is the
             # number of queues (HV_VIRTIO_NET_QUEUES).
