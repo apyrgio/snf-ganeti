@@ -499,7 +499,7 @@ class QmpConnection(MonitorSocket):
 
     try:
       fd = os.open(uri, os.O_RDWR)
-      fdset = self.AddFd([fd])
+      fdset = self.AddFd(fd)
       os.close(fd)
       filename = "/dev/fdset/%s" % fdset
     except OSError:
